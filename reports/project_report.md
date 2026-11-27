@@ -1,5 +1,5 @@
 # Customer Shopping Behavior Analysis: Project Report
-**Prepared by:** Vamshi Mudavath · **Tools:** Python (Pandas, Matplotlib, Seaborn), SQL (SQLite / PostgreSQL), HTML/JavaScript dashboard
+**Prepared by:** Vamshi Mudavath · **Tools:** Python (Pandas, Matplotlib, Seaborn), SQL (SQLite / PostgreSQL), Power BI, HTML/JavaScript dashboard
 
 ## 1. Business problem
 A retail company wants to understand how its customers shop so it can grow sales, improve satisfaction and build loyalty. The question for this analysis: *how can the company use its customer shopping data to identify trends, improve engagement and optimise its marketing and product strategy?*
@@ -36,8 +36,9 @@ The clean table was loaded into a SQL database and 13 business questions were an
 | Seasons | Fall USD 60,018 (best), Spring 58,679, Winter 58,607, Summer 55,777 (weakest) |
 | Age groups | Young Adult 26.7%, Middle-aged 25.4%, Adult 24.0%, Senior 23.9% of revenue |
 
-## 5. Dashboard
-An interactive dashboard (`docs/index.html`, published on GitHub Pages) shows the KPIs and every breakdown above, with filters for gender, category, season, subscription, age group and shipping type.
+## 5. Dashboards
+- **Power BI** (`powerbi/customer_behavior_dashboard.pbix`): KPI cards for Total Revenue ($233K), Number of Customers (3.9K), Average Purchase Amount ($59.76) and Average Review Rating (3.75); slicers for subscription status, gender, category and shipping type; charts for subscription share, revenue and sales by category, and revenue and sales by age group.
+- **Interactive web dashboard** (`docs/index.html`, published on GitHub Pages): the same KPIs and every breakdown above, with filters for gender, category, season, subscription, age group and shipping type.
 
 ## 6. Key findings
 1. Two categories, Clothing and Accessories, bring in three quarters of revenue.

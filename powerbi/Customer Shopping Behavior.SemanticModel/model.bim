@@ -1,0 +1,231 @@
+{
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "customer",
+        "columns": [
+          {
+            "name": "customer_id",
+            "dataType": "int64",
+            "sourceColumn": "customer_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "age",
+            "dataType": "int64",
+            "sourceColumn": "age",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "gender",
+            "dataType": "string",
+            "sourceColumn": "gender",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "item_purchased",
+            "dataType": "string",
+            "sourceColumn": "item_purchased",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "purchase_amount",
+            "dataType": "int64",
+            "sourceColumn": "purchase_amount",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "location",
+            "dataType": "string",
+            "sourceColumn": "location",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "size",
+            "dataType": "string",
+            "sourceColumn": "size",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "color",
+            "dataType": "string",
+            "sourceColumn": "color",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "season",
+            "dataType": "string",
+            "sourceColumn": "season",
+            "summarizeBy": "none",
+            "sortByColumn": "season_order"
+          },
+          {
+            "name": "review_rating",
+            "dataType": "double",
+            "sourceColumn": "review_rating",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "subscription_status",
+            "dataType": "string",
+            "sourceColumn": "subscription_status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "shipping_type",
+            "dataType": "string",
+            "sourceColumn": "shipping_type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "discount_applied",
+            "dataType": "string",
+            "sourceColumn": "discount_applied",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "previous_purchases",
+            "dataType": "int64",
+            "sourceColumn": "previous_purchases",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "payment_method",
+            "dataType": "string",
+            "sourceColumn": "payment_method",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "frequency_of_purchases",
+            "dataType": "string",
+            "sourceColumn": "frequency_of_purchases",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "age_group",
+            "dataType": "string",
+            "sourceColumn": "age_group",
+            "summarizeBy": "none",
+            "sortByColumn": "age_group_order"
+          },
+          {
+            "name": "purchase_frequency_days",
+            "dataType": "int64",
+            "sourceColumn": "purchase_frequency_days",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "customer_segment",
+            "dataType": "string",
+            "sourceColumn": "customer_segment",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "age_group_order",
+            "dataType": "int64",
+            "sourceColumn": "age_group_order",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "season_order",
+            "dataType": "int64",
+            "sourceColumn": "season_order",
+            "summarizeBy": "none",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "customer",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\customer_shopping_clean.csv\"), [Delimiter = \",\", Columns = 20, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"customer_id\", Int64.Type}, {\"age\", Int64.Type}, {\"gender\", type text}, {\"item_purchased\", type text}, {\"category\", type text}, {\"purchase_amount\", Int64.Type}, {\"location\", type text}, {\"size\", type text}, {\"color\", type text}, {\"season\", type text}, {\"review_rating\", type number}, {\"subscription_status\", type text}, {\"shipping_type\", type text}, {\"discount_applied\", type text}, {\"previous_purchases\", Int64.Type}, {\"payment_method\", type text}, {\"frequency_of_purchases\", type text}, {\"age_group\", type text}, {\"purchase_frequency_days\", Int64.Type}, {\"customer_segment\", type text}}, \"en-US\"),",
+                "    AgeOrder = Table.AddColumn(Typed, \"age_group_order\", each List.PositionOf({\"Young Adult\", \"Adult\", \"Middle-aged\", \"Senior\"}, [age_group]) + 1, Int64.Type),",
+                "    SeasonOrder = Table.AddColumn(AgeOrder, \"season_order\", each List.PositionOf({\"Spring\", \"Summer\", \"Fall\", \"Winter\"}, [season]) + 1, Int64.Type)",
+                "in",
+                "    SeasonOrder"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Revenue",
+            "expression": "SUM(customer[purchase_amount])",
+            "formatString": "\\$#,0"
+          },
+          {
+            "name": "Number of Customers",
+            "expression": "DISTINCTCOUNT(customer[customer_id])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Average Purchase Amount",
+            "expression": "AVERAGE(customer[purchase_amount])",
+            "formatString": "\\$#,0.00"
+          },
+          {
+            "name": "Average Review Rating",
+            "expression": "AVERAGE(customer[review_rating])",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Subscription Rate",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(customer), customer[subscription_status] = \"Yes\"), COUNTROWS(customer))",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Discount Rate",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(customer), customer[discount_applied] = \"Yes\"), COUNTROWS(customer))",
+            "formatString": "0.0%"
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "kind": "m",
+        "expression": [
+          "\"C:\\Users\\vamsh\\Downloads\\customer-shopping-behavior-analysis\\data\\processed\" meta [IsParameterQuery = true, Type = \"Text\", IsParameterQueryRequired = true]"
+        ],
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DataFolder\", \"customer\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      }
+    ]
+  }
+}
