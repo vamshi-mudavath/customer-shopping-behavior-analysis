@@ -4,7 +4,7 @@
 
 ![Power BI dashboard](images/powerbi_dashboard.png)
 
-*Power BI dashboard: [`powerbi/customer_behavior_dashboard.pbix`](powerbi/customer_behavior_dashboard.pbix)*
+*Power BI dashboard: [`powerbi/customer_shopping_behavior_dashboard.pbix`](powerbi/customer_shopping_behavior_dashboard.pbix)*
 
 ---
 
@@ -67,7 +67,7 @@ A retail company wants to understand its customers' shopping behaviour so it can
 | Q13 | Top 5 states by revenue | Montana, Illinois, California, Idaho, Nevada |
 
 ## Power BI dashboard
-`powerbi/customer_behavior_dashboard.pbix` is a one-page Power BI report built on the cleaned data:
+`powerbi/customer_shopping_behavior_dashboard.pbix` is a one-page Power BI report built on the cleaned data:
 
 | Element | Content |
 |---|---|
@@ -84,7 +84,7 @@ Average Review Rating   = AVERAGE(customer[review_rating])
 ```
 Filtering to subscribers shows USD 62,645 revenue, 1,053 customers and a USD 59.49 average purchase, the same figures as SQL Q5.
 
-**To open it:** install [Power BI Desktop](https://www.microsoft.com/power-bi/desktop) (free) and open `powerbi/customer_behavior_dashboard.pbix`. The source version (`Customer Shopping Behavior.pbip`, a Power BI Project) reads `data/processed/customer_shopping_clean.csv`; if your copy of the repo is in a different folder, change the `DataFolder` parameter in *Transform data → Manage parameters*, or regenerate it with `python src/build_powerbi.py "<your path>\data\processed"`.
+**To open it:** install [Power BI Desktop](https://www.microsoft.com/power-bi/desktop) (free) and open `powerbi/customer_shopping_behavior_dashboard.pbix`. The source version (`Customer Shopping Behavior.pbip`, a Power BI Project) reads `data/processed/customer_shopping_clean.csv`; if your copy of the repo is in a different folder, change the `DataFolder` parameter in *Transform data → Manage parameters*, or regenerate it with `python src/build_powerbi.py "<your path>\data\processed"`.
 
 ## Analysis charts
 Charts from the Python exploratory analysis in the notebook:
@@ -135,7 +135,7 @@ customer-shopping-behavior-analysis/
 │   ├── build_powerbi.py                         # builds the Power BI Project
 │   └── powerbi_template/                        # report layout and theme
 ├── powerbi/
-│   ├── customer_behavior_dashboard.pbix         # Power BI dashboard
+│   ├── customer_shopping_behavior_dashboard.pbix  # Power BI dashboard
 │   └── Customer Shopping Behavior.pbip          # same report as a Power BI Project (text files)
 ├── images/                                      # Power BI screenshot and analysis charts
 ├── reports/project_report.md                    # stakeholder report
@@ -152,7 +152,7 @@ pip install -r requirements.txt
 # 1. Run the analysis (creates the clean CSV, the SQLite database and the charts)
 jupyter notebook notebooks/shopping_behavior_analysis.ipynb      # then Kernel -> Restart & Run All
 
-# 2. Power BI: open powerbi/customer_behavior_dashboard.pbix in Power BI Desktop
+# 2. Power BI: open powerbi/customer_shopping_behavior_dashboard.pbix in Power BI Desktop
 ```
 To use **PostgreSQL** instead of SQLite, see the optional cell at the end of the notebook; the SQL file runs on both.
 

@@ -37,7 +37,7 @@ The clean table was loaded into a SQL database and 13 business questions were an
 | Age groups | Young Adult 26.7%, Middle-aged 25.4%, Adult 24.0%, Senior 23.9% of revenue |
 
 ## 5. Power BI dashboard
-`powerbi/customer_behavior_dashboard.pbix`: KPI cards for Total Revenue ($233K), Number of Customers (3.9K), Average Purchase Amount ($59.76) and Average Review Rating (3.75); slicers for subscription status, gender, category and shipping type; charts for subscription share, revenue and sales by category, and revenue and sales by age group.
+`powerbi/customer_shopping_behavior_dashboard.pbix`: KPI cards for Total Revenue ($233K), Number of Customers (3.9K), Average Purchase Amount ($59.76) and Average Review Rating (3.75); slicers for subscription status, gender, category and shipping type; charts for subscription share, revenue and sales by category, and revenue and sales by age group.
 
 ## 6. Key findings
 1. Two categories, Clothing and Accessories, bring in three quarters of revenue.

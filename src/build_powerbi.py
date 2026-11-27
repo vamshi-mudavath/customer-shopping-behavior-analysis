@@ -111,6 +111,9 @@ def report_json():
     layout = json.loads((TEMPLATE / "report_layout_template.json").read_text(encoding="utf-8"))
     # point every visual at this model's table
     text = json.dumps(layout).replace("public customer", T)
+    # replace the pink theme colour (data colour 5, #E044A7) used by the header banner and the
+    # donut's "No" slice with a lighter tint of the theme blue (data colour 1, #118DFF)
+    text = text.replace('\\"ColorId\\":6,\\"Percent\\":0.2', '\\"ColorId\\":2,\\"Percent\\":0.3')
     layout = json.loads(text)
     for v in layout["sections"][0]["visualContainers"]:
         cfg = json.loads(v["config"])
