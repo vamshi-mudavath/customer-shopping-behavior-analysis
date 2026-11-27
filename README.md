@@ -1,17 +1,15 @@
 # Customer Shopping Behavior Analysis: Retail Sales
 
-**Python · Pandas · SQL (SQLite / PostgreSQL) · Power BI · Matplotlib · Seaborn · Jupyter · HTML/JavaScript dashboard**
-
-### ▶ [Open the interactive dashboard](https://vamshi-mudavath.github.io/customer-shopping-behavior-analysis/): filter by gender, category, season, subscription, age group and shipping type, and every KPI and chart updates live
+**Python · Pandas · SQL (SQLite / PostgreSQL) · Power BI · Matplotlib · Seaborn · Jupyter**
 
 ![Power BI dashboard](images/powerbi_dashboard.png)
 
-*Power BI dashboard (`powerbi/customer_behavior_dashboard.pbix`). The same results are also available as an [interactive web dashboard](https://vamshi-mudavath.github.io/customer-shopping-behavior-analysis/) that opens in any browser.*
+*Power BI dashboard: [`powerbi/customer_behavior_dashboard.pbix`](powerbi/customer_behavior_dashboard.pbix)*
 
 ---
 
 ## Contents
-[Problem statement](#problem-statement) · [Objectives](#objectives) · [Dataset](#dataset) · [What I did](#what-i-did-step-by-step) · [SQL business questions](#sql-business-questions) · [Power BI dashboard](#power-bi-dashboard) · [Web dashboard](#web-dashboard) · [Key findings](#key-findings) · [Recommendations](#recommendations) · [Project summary](#project-summary) · [Repository structure](#repository-structure) · [How to run](#how-to-run)
+[Problem statement](#problem-statement) · [Objectives](#objectives) · [Dataset](#dataset) · [What I did](#what-i-did-step-by-step) · [SQL business questions](#sql-business-questions) · [Power BI dashboard](#power-bi-dashboard) · [Analysis charts](#analysis-charts) · [Key findings](#key-findings) · [Recommendations](#recommendations) · [Project summary](#project-summary) · [Repository structure](#repository-structure) · [How to run](#how-to-run)
 
 ---
 
@@ -48,9 +46,8 @@ A retail company wants to understand its customers' shopping behaviour so it can
 | 6 | **Exploratory analysis** | KPIs; revenue by category, gender and age group; order value by subscription, discount and shipping; product sales and ratings; seasons, payment methods and segments; correlation heatmap. | §5 |
 | 7 | **SQL analysis** | Loaded the clean table into SQLite and answered 13 business questions (aggregations, subqueries, `CASE`, CTEs and the `ROW_NUMBER()` window function). Queries are in `sql/business_queries.sql` and also run on PostgreSQL. | §6 |
 | 8 | **Power BI dashboard** | Imported the clean data into Power BI, created DAX measures (Total Revenue, Number of Customers, Average Purchase Amount, Average Review Rating) and built a one-page report: KPI cards, slicers for subscription, gender, category and shipping type, and charts by subscription, category and age group. | `powerbi/` |
-| 9 | **Web dashboard** | A one-page KPI dashboard image, and an interactive web dashboard with six filters and click-to-filter charts (`docs/index.html`). | §7 |
-| 10 | **Findings and recommendations** | Written conclusions for the business, including the data caveat. | §8–9 |
-| 11 | **Report** | A short project report for stakeholders (`reports/project_report.md`). | `reports/` |
+| 9 | **Findings and recommendations** | Written conclusions for the business, including the data caveat. | §8–9 |
+| 10 | **Report** | A short project report for stakeholders (`reports/project_report.md`). | `reports/` |
 
 ## SQL business questions
 | # | Question | Answer |
@@ -89,8 +86,8 @@ Filtering to subscribers shows USD 62,645 revenue, 1,053 customers and a USD 59.
 
 **To open it:** install [Power BI Desktop](https://www.microsoft.com/power-bi/desktop) (free) and open `powerbi/customer_behavior_dashboard.pbix`. The source version (`Customer Shopping Behavior.pbip`, a Power BI Project) reads `data/processed/customer_shopping_clean.csv`; if your copy of the repo is in a different folder, change the `DataFolder` parameter in *Transform data → Manage parameters*, or regenerate it with `python src/build_powerbi.py "<your path>\data\processed"`.
 
-## Web dashboard
-**[Live interactive dashboard](https://vamshi-mudavath.github.io/customer-shopping-behavior-analysis/)**: six filters (gender, category, season, subscription, age group, shipping type), KPI cards, click-to-filter charts, hover tooltips and the key findings.
+## Analysis charts
+Charts from the Python exploratory analysis in the notebook:
 
 | Revenue breakdown | Spending drivers |
 |---|---|
@@ -120,7 +117,7 @@ Filtering to subscribers shows USD 62,645 revenue, 1,053 customers and a USD 59.
 - **Fix data collection** so discounts and subscriptions are tracked for all customers, then repeat the gender analysis.
 
 ## Project summary
-I took a raw retail dataset of 3,900 purchases through a complete analytics workflow: cleaning and feature engineering in **Python**, answering 13 business questions in **SQL**, and presenting the results in a **Power BI dashboard** and an interactive web dashboard. The analysis shows that revenue depends on two categories and on a mature, loyal customer base, while subscriptions and discounts are not increasing how much customers spend per order. It also shows the value of checking the data before trusting it: the gender pattern in discounts and subscriptions is a data issue, not a customer insight.
+I took a raw retail dataset of 3,900 purchases through a complete analytics workflow: cleaning and feature engineering in **Python**, answering 13 business questions in **SQL**, and presenting the results in a **Power BI dashboard**. The analysis shows that revenue depends on two categories and on a mature, loyal customer base, while subscriptions and discounts are not increasing how much customers spend per order. It also shows the value of checking the data before trusting it: the gender pattern in discounts and subscriptions is a data issue, not a customer insight.
 
 **Skills shown:** data cleaning, missing-value imputation, feature engineering, exploratory data analysis, SQL (aggregations, subqueries, CTEs, window functions), data visualisation, Power BI (DAX measures, slicers, report design), dashboard design and business communication.
 
@@ -135,15 +132,12 @@ customer-shopping-behavior-analysis/
 ├── notebooks/shopping_behavior_analysis.ipynb   # full analysis (Python + SQL)
 ├── sql/business_queries.sql                     # 13 business questions
 ├── src/
-│   ├── build_dashboard.py                       # builds docs/index.html from the clean data
-│   ├── dashboard_template.html
 │   ├── build_powerbi.py                         # builds the Power BI Project
 │   └── powerbi_template/                        # report layout and theme
 ├── powerbi/
 │   ├── customer_behavior_dashboard.pbix         # Power BI dashboard
 │   └── Customer Shopping Behavior.pbip          # same report as a Power BI Project (text files)
-├── docs/index.html                              # interactive web dashboard (GitHub Pages)
-├── images/                                      # charts used in this README
+├── images/                                      # Power BI screenshot and analysis charts
 ├── reports/project_report.md                    # stakeholder report
 ├── requirements.txt
 └── README.md
@@ -158,15 +152,12 @@ pip install -r requirements.txt
 # 1. Run the analysis (creates the clean CSV, the SQLite database and the charts)
 jupyter notebook notebooks/shopping_behavior_analysis.ipynb      # then Kernel -> Restart & Run All
 
-# 2. Rebuild the interactive web dashboard
-python src/build_dashboard.py      # then open docs/index.html in a browser
-
-# 3. Power BI: open powerbi/customer_behavior_dashboard.pbix in Power BI Desktop
+# 2. Power BI: open powerbi/customer_behavior_dashboard.pbix in Power BI Desktop
 ```
 To use **PostgreSQL** instead of SQLite, see the optional cell at the end of the notebook; the SQL file runs on both.
 
 ## Acknowledgement
-The project brief and dataset come from [Amlan Mohanty's Customer Behavior Data Analyst portfolio project](https://github.com/amlanmohanty1/customer-trends-data-analysis-SQL-Python-PowerBI) ([YouTube walkthrough](https://www.youtube.com/watch?v=5PrZvPeUw60)), released under the MIT License. The Power BI report follows the layout from that tutorial (with a Total Revenue KPI added and the Category slicer changed to a list). I extended the project with a data-quality audit, more SQL questions, new charts, an interactive web dashboard and my own findings and recommendations.
+The project brief and dataset come from [Amlan Mohanty's Customer Behavior Data Analyst portfolio project](https://github.com/amlanmohanty1/customer-trends-data-analysis-SQL-Python-PowerBI) ([YouTube walkthrough](https://www.youtube.com/watch?v=5PrZvPeUw60)), released under the MIT License. The Power BI report follows the layout from that tutorial (with a Total Revenue KPI added and the Category slicer changed to a list). I extended the project with a data-quality audit, more SQL questions, new charts and my own findings and recommendations.
 
 ---
 **Vamshi Mudavath** · B.Tech in AI & Data Science · [LinkedIn](https://www.linkedin.com/in/vamshi-mudavath-225277447) · [GitHub](https://github.com/vamshi-mudavath)
